@@ -1,0 +1,454 @@
+/* Add these styles to your existing events.css */
+
+/* Participant Form Styles */
+.participant-form {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.participant-form h4 {
+    margin-bottom: 10px;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 480px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Ticket Modal Styles */
+.ticket-modal .modal-content {
+    max-width: 400px;
+    text-align: center;
+}
+
+.ticket-container {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    color: #333;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.ticket-header {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.ticket-header h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.3rem;
+}
+
+.ticket-id {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.ticket-qr {
+    padding: 20px;
+    background: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ticket-qr canvas {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 10px;
+    background: white;
+}
+
+.ticket-details {
+    padding: 20px;
+    text-align: left;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.detail-item span:first-child {
+    font-weight: 600;
+    color: #555;
+}
+
+.detail-item span:last-child {
+    color: #333;
+    text-align: right;
+}
+
+.ticket-instructions {
+    background: #e3f2fd;
+    padding: 15px;
+    margin: 0 20px 20px;
+    border-radius: 8px;
+    text-align: left;
+}
+
+.ticket-instructions p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #1565c0;
+}
+
+.ticket-actions {
+    padding: 0 20px 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.download-btn, .print-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.download-btn {
+    background: var(--primary-gradient);
+    color: white;
+}
+
+.print-btn {
+    background: #e9ecef;
+    color: #333;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.print-btn:hover {
+    background: #dee2e6;
+    transform: translateY(-2px);
+}
+
+/* Form enhancements */
+.form-group input {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.form-group input:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-color);
+}
+
+/* Free event styling */
+.event-price .price {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .ticket-actions {
+        flex-direction: column;
+    }
+    
+    .participant-form {
+        padding: 10px;
+    }
+    
+    .form-row {
+        gap: 10px;
+    }
+}* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0c0c0c, #1a1a2e);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.registration-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+h1, h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    background: linear-gradient(45deg, #fff, #667eea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+input, select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Buttons */
+.register-btn, .confirm-btn, .download-btn {
+    width: 100%;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.register-btn:hover, .confirm-btn:hover, .download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.back-btn, .home-btn {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.back-btn:hover, .home-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* QR Payment */
+.qr-payment {
+    text-align: center;
+}
+
+.qr-code {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: inline-block;
+    margin: 20px 0;
+}
+
+.amount {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 15px 0;
+    color: #4CAF50;
+}
+
+.instructions {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px;
+}
+
+/* Ticket */
+.ticket {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    color: #333;
+    margin: 20px 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.ticket-header {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.ticket-header h3 {
+    margin: 0;
+    -webkit-text-fill-color: white;
+    background: none;
+}
+
+.ticket-id {
+    margin: 5px 0 0 0;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.ticket-body {
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.ticket-info {
+    flex: 1;
+    text-align: left;
+}
+
+.ticket-info p {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.ticket-info strong {
+    color: #333;
+}
+
+.ticket-qr {
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.ticket-footer {
+    background: #f8f9fa;
+    padding: 15px;
+    text-align: center;
+    border-top: 1px solid #e9ecef;
+}
+
+.ticket-footer p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .registration-container {
+        padding: 20px;
+    }
+    
+
+    .ticket-body {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .ticket-info {
+        text-align: center;
+    }
+}
+/* OTP Section Styles */
+.otp-section {
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.otp-info {
+    text-align: center;
+    margin-bottom: 15px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.otp-info span {
+    font-weight: bold;
+    color: #667eea;
+}
+
+.resend-btn {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.resend-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* QR Code info */
+.instructions {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.amount {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 15px 0;
+    color: #4CAF50;
+    text-align: center;
+}

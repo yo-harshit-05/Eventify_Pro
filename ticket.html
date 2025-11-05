@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration - Eventify Plus</title>
+    <link rel="stylesheet" href="ticket.css">
+</head>
+<body>
+    <div class="registration-container">
+        <!-- Event Info -->
+        <div class="event-info" id="eventInfo" style="display: none;">
+            <h1 id="eventTitle">Event Name</h1>
+            <p id="eventDetails">Event details loading...</p>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="registration-form" id="registrationForm">
+            <h1>Event Registration</h1>
+            
+            <div class="form-group">
+                <label for="studentName">Full Name</label>
+                <input type="text" id="studentName" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="rollNumber">Roll Number</label>
+                <input type="text" id="rollNumber" placeholder="Enter your roll number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="branch">Branch</label>
+                <input type="text" id="branch" placeholder="Enter your branch" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="mobile">Mobile Number</label>
+                <input type="tel" id="mobile" placeholder="Enter your mobile number" required>
+            </div>
+
+            <button type="button" class="register-btn" onclick="showQRPayment()">
+                Proceed to Pay ₹<span id="eventPrice">50</span>
+            </button>
+        </div>
+
+        <!-- QR Payment Section -->
+        <div class="qr-payment" id="qrPayment" style="display: none;">
+            <h2>Scan to Pay</h2>
+            <div class="qr-code" id="qrCode"></div>
+            <p class="amount">Amount: ₹<span id="amountDisplay">50</span></p>
+            <p class="instructions">Scan the QR code with any UPI app to complete payment</p>
+            
+            <div class="otp-section">
+                <p class="otp-info">OTP sent to your email: <span id="userEmail">-</span></p>
+                <div class="form-group">
+                    <label for="otpInput">Enter OTP</label>
+                    <input type="text" id="otpInput" placeholder="Enter 6-digit OTP" maxlength="6">
+                </div>
+                <button type="button" class="confirm-btn" onclick="verifyOTP()">Verify OTP</button>
+                <button type="button" class="resend-btn" onclick="resendOTP()">Resend OTP</button>
+            </div>
+            
+            <button type="button" class="back-btn" onclick="showRegistrationForm()">Back</button>
+        </div>
+
+        <!-- Ticket Section -->
+        <div class="ticket-section" id="ticketSection" style="display: none;">
+            <h2>Registration Successful! 🎉</h2>
+            <div class="ticket">
+                <div class="ticket-header">
+                    <h3 id="ticketEventName">Event Name</h3>
+                    <p class="ticket-id">ID: <span id="ticketId">-</span></p>
+                </div>
+                <div class="ticket-body">
+                    <div class="ticket-info">
+                        <p><strong>Name:</strong> <span id="ticketName">-</span></p>
+                        <p><strong>Roll No:</strong> <span id="ticketRoll">-</span></p>
+                        <p><strong>Branch:</strong> <span id="ticketBranch">-</span></p>
+                        <p><strong>Mobile:</strong> <span id="ticketMobile">-</span></p>
+                    </div>
+                    <div class="ticket-qr" id="ticketQR"></div>
+                </div>
+                <div class="ticket-footer">
+                    <p>Show this ticket at the event entry</p>
+                </div>
+            </div>
+            <button type="button" class="download-btn" onclick="downloadTicket()">Download Ticket</button>
+            <button type="button" class="home-btn" onclick="goHome()">Back to Home</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="ticket.js"></script>
+</body>
+</html>
