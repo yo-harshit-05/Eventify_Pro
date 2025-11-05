@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Eventify Plus</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>Join Eventify Plus</h1>
+                <p>Create your account as Student, Organizer, or Admin</p>
+            </div>
+            
+            <form class="login-form">
+                <!-- Role Selection -->
+                <div class="form-group">
+                    <label>Account Type</label>
+                    <div class="role-selection">
+                        <div class="role-option">
+                            <input type="radio" id="student" name="role" value="student" checked>
+                            <label for="student">🎓 Student</label>
+                        </div>
+                        <div class="role-option">
+                            <input type="radio" id="organizer" name="role" value="organizer">
+                            <label for="organizer">📋 Organizer</label>
+                        </div>
+                        <div class="role-option">
+                            <input type="radio" id="admin" name="role" value="admin">
+                            <label for="admin">⚙️ Admin</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Basic Information -->
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">College Email</label>
+                    <input type="email" id="email" placeholder="name@college.edu" required>
+                </div>
+
+                <!-- Student Specific Fields -->
+                <div class="role-specific" id="student-fields">
+                    <div class="form-group">
+                        <label for="rollno">Roll Number</label>
+                        <input type="text" id="rollno" placeholder="Enter your roll number">
+                    </div>
+                    <div class="form-group">
+                        <label for="branch">Branch/Department</label>
+                        <input type="text" id="branch" placeholder="e.g., Computer Science">
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Academic Year</label>
+                        <select id="year">
+                            <option value="">Select Year</option>
+                            <option value="1">First Year</option>
+                            <option value="2">Second Year</option>
+                            <option value="3">Third Year</option>
+                            <option value="4">Fourth Year</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Organizer Specific Fields -->
+                <div class="role-specific" id="organizer-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="society">Society/Club</label>
+                        <input type="text" id="society" placeholder="e.g., Coding Club">
+                    </div>
+                    <div class="form-group">
+                        <label for="secretKey">Society Secret Key</label>
+                        <input type="password" id="secretKey" placeholder="Enter secret key provided by admin">
+                    </div>
+                    <div class="form-group">
+                        <label for="position">Position</label>
+                        <select id="position">
+                            <option value="">Select Position</option>
+                            <option value="president">President</option>
+                            <option value="secretary">Secretary</option>
+                            <option value="treasurer">Treasurer</option>
+                            <option value="coordinator">Coordinator</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Admin Specific Fields -->
+                <div class="role-specific" id="admin-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="adminKey">Admin Authorization Key</label>
+                        <input type="password" id="adminKey" placeholder="Enter admin authorization key">
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Administration Department</label>
+                        <input type="text" id="department" placeholder="e.g., Student Affairs">
+                    </div>
+                </div>
+
+                <!-- Common Fields -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Create a password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+                </div>
+                
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="terms" required>
+                        <span>I agree to the <a href="#">Terms & Conditions</a> and college policies</span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="login-btn">Create Account</button>
+            </form>
+            
+            <div class="login-footer">
+                <p>Already have an account? <a href="login.html">Sign in here</a></p>
+                <p><a href="index.html">← Back to home</a></p>
+            </div>
+        </div>
+        
+        <div class="login-background">
+            <div class="background-overlay"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

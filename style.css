@@ -1,18 +1,28 @@
-/* style.css */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #0f0f0f;
-    color: white;
-    overflow-x: hidden;
+:root {
+    --primary-gradient: linear-gradient(45deg, #667eea, #764ba2);
+    --secondary-gradient: linear-gradient(45deg, #f093fb, #f5576c);
+    --accent-color: #667eea;
+    --background-dark: #0f0f0f;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.8);
 }
 
-/* Cinematic Loader */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--background-dark);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Cinematic Loader - FIXED: No black screen */
 .cinematic-loader {
     position: fixed;
     top: 0;
@@ -24,7 +34,20 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 10000;
+    animation: loaderExit 0.5s ease-in-out 3s forwards;
+}
+
+@keyframes loaderExit {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.1);
+        visibility: hidden;
+    }
 }
 
 .loader-bg {
@@ -34,15 +57,21 @@ body {
     width: 100%;
     height: 100%;
     background: 
-        radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-    animation: pulseBackground 4s ease-in-out infinite;
+        radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+    animation: pulseBackground 3s ease-in-out infinite;
 }
 
 @keyframes pulseBackground {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
+    0%, 100% { 
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1.02);
+    }
 }
 
 .logo-reveal {
@@ -57,42 +86,52 @@ body {
 }
 
 .logo-text {
-    font-size: 5rem;
+    font-size: clamp(3rem, 8vw, 5rem);
     font-weight: 900;
     background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
     background-size: 300% 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: gradientShift 3s ease infinite, glitchEffect 5s infinite;
+    animation: 
+        gradientShift 2s ease infinite,
+        textReveal 1s ease-out 0.5s forwards;
     text-transform: uppercase;
-    letter-spacing: 4px;
+    letter-spacing: clamp(2px, 1vw, 4px);
     transform: translateY(100%);
 }
 
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+@keyframes textReveal {
+    to {
+        transform: translateY(0);
+    }
 }
 
-@keyframes glitchEffect {
-    0%, 100% { transform: translateX(0); }
-    10% { transform: translateX(-2px) translateY(1px); }
-    20% { transform: translateX(2px) translateY(-1px); }
-    30% { transform: translateX(-1px) translateY(2px); }
-    40% { transform: translateX(1px) translateY(-2px); }
-    50% { transform: translateX(0); }
+@keyframes gradientShift {
+    0%, 100% { 
+        background-position: 0% 50%;
+    }
+    50% { 
+        background-position: 100% 50%;
+    }
 }
 
 .logo-subtitle {
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 3vw, 1.5rem);
     margin-top: 1rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-secondary);
     opacity: 0;
     transform: translateY(20px);
     font-weight: 300;
     letter-spacing: 2px;
+    animation: subtitleReveal 1s ease-out 1s forwards;
+}
+
+@keyframes subtitleReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Floating Elements */
@@ -105,9 +144,9 @@ body {
 
 .floating-icon {
     position: absolute;
-    font-size: 3rem;
+    font-size: clamp(2rem, 4vw, 3rem);
     opacity: 0;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    animation: floatIn 1s ease-out 1.5s forwards;
 }
 
 #icon1 { top: 20%; left: 10%; }
@@ -116,11 +155,18 @@ body {
 #icon4 { top: 80%; right: 20%; }
 #icon5 { top: 50%; left: 50%; }
 
-/* Progress Bar */
+@keyframes floatIn {
+    to {
+        opacity: 0.7;
+        transform: translateY(-10px);
+    }
+}
+
+/* Progress Bar - 3 seconds */
 .progress-bar {
     position: absolute;
     bottom: 100px;
-    width: 300px;
+    width: min(300px, 80vw);
     height: 3px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
@@ -132,49 +178,38 @@ body {
     background: linear-gradient(90deg, #667eea, #764ba2);
     border-radius: 10px;
     width: 0%;
-    box-shadow: 0 0 20px rgba(102, 126, 234, 0.7);
+    animation: fillProgress 3s ease-in-out forwards;
 }
 
-/* Particle Effects */
-.particles-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
+@keyframes fillProgress {
+    to { width: 100%; }
 }
 
-.particle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: white;
-    border-radius: 50%;
-    opacity: 0;
-}
-
-/* Main Content */
+/* FIXED: Main Content - No black screen */
 .main-content {
-    opacity: 0;
-    visibility: hidden;
+    opacity: 1; /* Changed from 0 to 1 */
+    visibility: visible; /* Changed from hidden to visible */
+    /* Removed the animation that was causing delay */
 }
 
+/* Navbar */
 .navbar {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 2rem;
+    padding: 1.5rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 100;
-    background: rgba(15, 15, 15, 0.9);
+    background: rgba(15, 15, 15, 0.95);
     backdrop-filter: blur(10px);
 }
 
 .nav-logo {
     font-size: 1.5rem;
     font-weight: bold;
-    background: linear-gradient(45deg, #667eea, #764ba2);
+    background: var(--primary-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -185,12 +220,14 @@ body {
     text-decoration: none;
     margin-left: 2rem;
     transition: color 0.3s;
+    font-weight: 500;
 }
 
 .nav-links a:hover {
     color: #667eea;
 }
 
+/* Hero Section */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -224,6 +261,7 @@ body {
     border-radius: 30px;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
+    font-weight: 600;
 }
 
 .cta-button:hover {
@@ -235,31 +273,66 @@ body {
     position: relative;
     width: 500px;
     height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.floating-card {
-    position: absolute;
-    width: 200px;
-    height: 250px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+/* Photo Gallery */
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 600px;
+}
+
+.photo-card {
+    position: relative;
+    width: 180px;
+    height: 240px;
     border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-#card1 {
-    top: 50px;
+.photo-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(102, 126, 234, 0.3);
+}
+
+.photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.photo-card:hover img {
+    transform: scale(1.1);
+}
+
+.photo-overlay {
+    position: absolute;
+    bottom: 0;
     left: 0;
-    background: linear-gradient(45deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
 
-#card2 {
-    top: 150px;
-    left: 150px;
-    background: linear-gradient(45deg, rgba(240, 147, 251, 0.3), rgba(245, 87, 108, 0.3));
+.photo-overlay h3 {
+    font-size: 1.2rem;
+    background: linear-gradient(45deg, #fff, #667eea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
+<<<<<<< HEAD
 #card3 {
     top: 50px;
     left: 300px;
@@ -377,3 +450,48 @@ body {
     box-shadow: 0 0 25px rgba(102,126,234,0.6);
     border-color: transparent;
 }
+=======
+/* Responsive Design */
+@media (max-width: 968px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 6rem 5% 2rem;
+        gap: 3rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+    
+    .photo-gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+    
+    .photo-card {
+        width: 150px;
+        height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo-text {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .photo-gallery {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .photo-card {
+        width: 250px;
+        height: 180px;
+    }
+}
+>>>>>>> eeb2d04a6e976215b3cff7c4a13258f293f550f8
