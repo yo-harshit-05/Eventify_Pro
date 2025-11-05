@@ -1,201 +1,165 @@
-// script.js
+// Simple loader removal after 1.5 seconds
 document.addEventListener('DOMContentLoaded', function() {
-    startCinematicAnimation();
-});
-
-function startCinematicAnimation() {
-    const tl = gsap.timeline();
-    
-    // Create particles
-    createParticles();
-    
-    // Logo reveal animation
-    tl.to('#logoText', {
-        y: 0,
-        duration: 1.5,
-        ease: "power4.out",
-        delay: 0.5
-    })
-    .to('#logoSubtitle', {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power2.out"
-    }, "-=0.5")
-    
-    // Animate floating icons
-    .fromTo('.floating-icon', 
-        { scale: 0, rotation: -180 },
-        { 
-            scale: 1, 
-            rotation: 0, 
-            opacity: 0.7,
-            duration: 1, 
-            stagger: 0.2,
-            ease: "back.out(1.7)"
+    setTimeout(function() {
+        const loader = document.getElementById('cinematicLoader');
+        if (loader) {
+            loader.style.opacity = '0';
+            loader.style.visibility = 'hidden';
         }
-    )
-    
-    // Pulse animation for icons
-    .to('.floating-icon', {
-        scale: 1.2,
-        duration: 0.5,
-        yoyo: true,
-        repeat: 3,
-        stagger: 0.1,
-        ease: "power1.inOut"
-    })
-    
-    // Progress bar animation
-    .to('#progressFill', {
-        width: "100%",
-        duration: 3,
-        ease: "power2.inOut"
-    })
-    
-    // Final logo emphasis
-    .to('#logoText', {
-        scale: 1.1,
-        duration: 0.5,
-        yoyo: true,
-        repeat: 1,
-        ease: "power2.inOut"
-    })
-    
-    // Transition to main content
-    .to('.cinematic-loader', {
-        opacity: 0,
-        duration: 1,
-        ease: "power2.inOut",
-        onComplete: showMainContent
-    });
-}
+    }, 1500);
 
-function createParticles() {
-    const container = document.getElementById('particlesContainer');
-    const particleCount = 50;
-    
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        
-        // Random position
-        const posX = Math.random() * 100;
-        const posY = Math.random() * 100;
-        
-        // Random size
-        const size = Math.random() * 3 + 1;
-        
-        // Random delay
-        const delay = Math.random() * 2;
-        
-        gsap.set(particle, {
-            left: `${posX}%`,
-            top: `${posY}%`,
-            width: size,
-            height: size,
-            opacity: 0
+    // Navigation functionality
+    const startJourneyBtn = document.getElementById('startJourneyBtn');
+    if (startJourneyBtn) {
+        startJourneyBtn.addEventListener('click', function() {
+            window.location.href = 'signup.html';
         });
-        
-        // Animate particle
-        gsap.to(particle, {
-            opacity: Math.random() * 0.5 + 0.2,
-            duration: Math.random() * 2 + 1,
-            delay: delay,
-            yoyo: true,
-            repeat: -1,
-            ease: "sine.inOut"
-        });
-        
-        container.appendChild(particle);
     }
-}
 
-function showMainContent() {
-    // Hide cinematic loader
-    document.getElementById('cinematicLoader').style.display = 'none';
-    
-    // Show main content with animation
-    gsap.to('#mainContent', {
-        opacity: 1,
-        visibility: 'visible',
-        duration: 1
-    });
-    
-    // Animate hero section
-    const heroTl = gsap.timeline();
-    
-    heroTl.from('.nav-logo', {
-        y: -50,
-        opacity: 0,
-        duration: 0.8
-    })
-    .from('.nav-links a', {
-        y: -50,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.1
-    }, "-=0.4")
-    .from('.hero-content h1', {
-        x: -100,
-        opacity: 0,
-        duration: 1
-    })
-    .from('.hero-content p', {
-        x: -100,
-        opacity: 0,
-        duration: 0.8
-    }, "-=0.5")
-    .from('.cta-button', {
-        scale: 0,
-        opacity: 0,
-        duration: 0.6,
-        ease: "back.out(1.7)"
-    })
-    .from('.floating-card', {
-        y: 100,
-        opacity: 0,
-        rotation: 10,
-        duration: 1,
-        stagger: 0.2,
-        ease: "power3.out"
-    });
-    
-    // Continuous floating animation for cards
-    gsap.to(['#card1', '#card2', '#card3'], {
-        y: -20,
-        duration: 2,
-        yoyo: true,
-        repeat: -1,
-        ease: "sine.inOut",
-        stagger: 0.3
-    });
-}
-
-// Add interactive cursor effect
-document.addEventListener('mousemove', function(e) {
-    gsap.to('.floating-icon', {
-        x: (e.clientX - window.innerWidth / 2) * 0.01,
-        y: (e.clientY - window.innerHeight / 2) * 0.01,
-        duration: 1,
-        ease: "power2.out"
+    // Photo card hover effects
+    const photoCards = document.querySelectorAll('.photo-card');
+    photoCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+        });
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
     });
 });
 
-// Add scroll-triggered animations for future sections
-gsap.registerPlugin(ScrollTrigger);
+// Role selection functionality for signup page
+document.addEventListener('DOMContentLoaded', function() {
+    const roleRadios = document.querySelectorAll('input[name="role"]');
+    const studentFields = document.getElementById('student-fields');
+    const organizerFields = document.getElementById('organizer-fields');
+    const adminFields = document.getElementById('admin-fields');
 
-// Example for future sections
-gsap.utils.toArray('.feature-section').forEach(section => {
-    gsap.from(section, {
-        opacity: 0,
-        y: 100,
-        duration: 1,
-        scrollTrigger: {
-            trigger: section,
-            start: 'top 80%',
-            end: 'bottom 20%',
-            toggleActions: 'play none none reverse'
-        }
-    });
+    if (roleRadios.length > 0) {
+        roleRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Hide all role-specific fields
+                if (studentFields) studentFields.style.display = 'none';
+                if (organizerFields) organizerFields.style.display = 'none';
+                if (adminFields) adminFields.style.display = 'none';
+
+                // Show fields for selected role
+                if (this.value === 'student' && studentFields) {
+                    studentFields.style.display = 'block';
+                } else if (this.value === 'organizer' && organizerFields) {
+                    organizerFields.style.display = 'block';
+                } else if (this.value === 'admin' && adminFields) {
+                    adminFields.style.display = 'block';
+                }
+            });
+        });
+    }
+
+    // Form submission handling
+    const loginForm = document.querySelector('.login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let isValid = true;
+            const email = document.getElementById('email')?.value;
+            const password = document.getElementById('password')?.value;
+
+            // Basic validation
+            if (!email || !password) {
+                showMessage('Please fill in all required fields!', 'error');
+                isValid = false;
+            }
+
+            // Role-specific validation for signup
+            const selectedRole = document.querySelector('input[name="role"]:checked');
+            if (selectedRole) {
+                if (selectedRole.value === 'organizer') {
+                    const secretKey = document.getElementById('secretKey')?.value;
+                    if (!secretKey) {
+                        showMessage('Society Secret Key is required for organizers', 'error');
+                        isValid = false;
+                    }
+                }
+                if (selectedRole.value === 'admin') {
+                    const adminKey = document.getElementById('adminKey')?.value;
+                    if (!adminKey) {
+                        showMessage('Admin Authorization Key is required', 'error');
+                        isValid = false;
+                    }
+                }
+            }
+
+            if (isValid) {
+                showMessage('Processing your request...', 'success');
+                // Simulate API call
+                setTimeout(() => {
+                    if (window.location.pathname.includes('signup')) {
+                        showMessage('Account created successfully! Redirecting...', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 2000);
+                    } else {
+                        showMessage('Login successful! Redirecting...', 'success');
+                        setTimeout(() => {
+                            // Redirect based on role
+                            const roleSelect = document.getElementById('role');
+                            const role = roleSelect ? roleSelect.value : 'student';
+                            redirectToDashboard(role);
+                        }, 2000);
+                    }
+                }, 1500);
+            }
+        });
+    }
 });
+
+// Redirect to appropriate dashboard
+function redirectToDashboard(role) {
+    const dashboards = {
+        'student': 'student-dashboard.html',
+        'organizer': 'organizer-dashboard.html',
+        'admin': 'admin-dashboard.html'
+    };
+    window.location.href = dashboards[role] || 'student-dashboard.html';
+}
+
+// Show message function
+function showMessage(message, type) {
+    const existingMessage = document.querySelector('.message-popup');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+    
+    const messageEl = document.createElement('div');
+    messageEl.className = `message-popup ${type}`;
+    messageEl.textContent = message;
+    messageEl.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: 10px;
+        color: white;
+        font-weight: 500;
+        z-index: 1000;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        ${type === 'success' ? 'background: linear-gradient(45deg, #4CAF50, #45a049);' : 'background: linear-gradient(45deg, #f5576c, #e53935);'}
+        max-width: 300px;
+        word-wrap: break-word;
+    `;
+    
+    document.body.appendChild(messageEl);
+    
+    setTimeout(() => {
+        messageEl.style.transform = 'translateX(0)';
+    }, 100);
+    
+    setTimeout(() => {
+        messageEl.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            messageEl.remove();
+        }, 300);
+    }, 4000);
+}

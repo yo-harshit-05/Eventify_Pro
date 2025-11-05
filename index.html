@@ -37,29 +37,42 @@
         <nav class="navbar">
             <div class="nav-logo">EVENTIFY PLUS</div>
             <div class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#contact">Get Started</a>
+                <a href="login.html" class="nav-link">Log in</a>
+                <a href="signup.html" class="nav-link">Sign up</a>
             </div>
         </nav>
 
         <section class="hero">
             <div class="hero-content">
-                <h1>Transform Your Campus Events</h1>
-                <p>From chaotic planning to seamless execution - all in one platform</p>
-                <button class="cta-button">Start Your Journey</button>
+                <h1>Streamline Events</h1>
+                <p>"Your vision, our platform, unforgettable events."</p>
+                <button class="cta-button" id="startJourneyBtn">Start Your Journey</button>
             </div>
             <div class="hero-visual">
-                <div class="floating-card" id="card1"></div>
-                <div class="floating-card" id="card2"></div>
-                <div class="floating-card" id="card3"></div>
+                <div class="photo-gallery">
+                    <div class="photo-card">
+                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2VkZGluZyUyMGV2ZW50fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Wedding Event" loading="lazy">
+                        <div class="photo-overlay">
+                            <h3>Weddings</h3>
+                        </div>
+                    </div>
+                    <div class="photo-card">
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29ycG9yYXRlJTIwZXZlbnR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Corporate Event" loading="lazy">
+                        <div class="photo-overlay">
+                            <h3>Corporate</h3>
+                        </div>
+                    </div>
+                    <div class="photo-card">
+                        <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGFydHklMjBldmVudHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Party Event" loading="lazy">
+                        <div class="photo-overlay">
+                            <h3>Parties</h3>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
 
-    <!-- GSAP & Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
