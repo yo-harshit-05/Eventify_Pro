@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - College Event Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --primary-dark: #1e3a8a;
+            --secondary: #059669;
+            --accent: #d97706;
+            --warning: #dc2626;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .logo-icon {
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .notification-icon {
+            position: relative;
+            font-size: 20px;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--warning);
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 30px 0;
+        }
+
+        .welcome-section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+        }
+
+        .welcome-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .welcome-text h2 {
+            font-size: 24px;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .welcome-text p {
+            color: var(--gray);
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .admin-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .admin-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+
+        /* Stats Section */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-title {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .icon-blue {
+            background: #dbeafe;
+            color: var(--primary);
+        }
+
+        .icon-green {
+            background: #d1fae5;
+            color: var(--secondary);
+        }
+
+        .icon-yellow {
+            background: #fef3c7;
+            color: var(--accent);
+        }
+
+        .icon-purple {
+            background: #ede9fe;
+            color: #8b5cf6;
+        }
+
+        .icon-red {
+            background: #fee2e2;
+            color: var(--warning);
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-change {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .positive {
+            color: var(--secondary);
+        }
+
+        .negative {
+            color: var(--warning);
+        }
+
+        /* Content Layout */
+        .content-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 968px) {
+            .content-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Pending Approvals Section */
+        .approvals-section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 25px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .view-all {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .approvals-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .approval-card {
+            border: 1px solid var(--light-gray);
+            border-radius: 12px;
+            padding: 18px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .approval-card:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .approval-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .approval-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .approval-type {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .type-event {
+            background: #dbeafe;
+            color: var(--primary);
+        }
+
+        .type-expense {
+            background: #d1fae5;
+            color: var(--secondary);
+        }
+
+        .type-user {
+            background: #fef3c7;
+            color: var(--accent);
+        }
+
+        .approval-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .approval-detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .approval-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .approve-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .approve-btn:hover {
+            background: #047857;
+        }
+
+        .reject-btn {
+            background: var(--warning);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .reject-btn:hover {
+            background: #b91c1c;
+        }
+
+        .view-details-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-details-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Events Section */
+        .events-section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .events-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .event-card {
+            border: 1px solid var(--light-gray);
+            border-radius: 12px;
+            padding: 18px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .event-card:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .event-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .event-status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .status-approved {
+            background: #d1fae5;
+            color: var(--secondary);
+        }
+
+        .status-rejected {
+            background: #fee2e2;
+            color: var(--warning);
+        }
+
+        .status-completed {
+            background: #dbeafe;
+            color: #3b82f6;
+        }
+
+        .event-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .event-detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .event-metrics {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .metric {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .metric-value {
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .event-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .action-btn {
+            background: var(--light-gray);
+            color: var(--dark);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: #d1d5db;
+        }
+
+        /* Sidebar Sections */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .quick-actions, .notifications, .system-health {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 10px;
+            border: 1px solid var(--light-gray);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--dark);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .action-item:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 10px;
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .action-text {
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .notification-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .notification-item {
+            display: flex;
+            gap: 12px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+            cursor: pointer;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .icon-success {
+            background: #d1fae5;
+            color: var(--secondary);
+        }
+
+        .icon-info {
+            background: #dbeafe;
+            color: var(--primary);
+        }
+
+        .icon-warning {
+            background: #fef3c7;
+            color: var(--accent);
+        }
+
+        .icon-danger {
+            background: #fee2e2;
+            color: var(--warning);
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-text {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .notification-time {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        /* System Health */
+        .health-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .health-metric {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            background: var(--light);
+        }
+
+        .health-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .health-label {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .health-good {
+            color: var(--secondary);
+        }
+
+        .health-warning {
+            color: var(--accent);
+        }
+
+        .health-critical {
+            color: var(--warning);
+        }
+
+        /* Footer */
+        footer {
+            background: white;
+            border-top: 1px solid var(--light-gray);
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .copyright {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            color: var(--gray);
+            font-size: 18px;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-link:hover {
+            color: var(--primary);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input {
+            width: auto;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+
+        /* Event Details Modal */
+        .event-detail-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .event-detail-label {
+            width: 150px;
+            font-weight: 600;
+            color: var(--gray);
+        }
+
+        .event-detail-value {
+            flex: 1;
+        }
+
+        .event-description {
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        /* Users List Modal */
+        .users-list {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        .user-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .user-info-modal {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .user-details-modal h4 {
+            margin-bottom: 5px;
+        }
+
+        .user-role-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .role-student {
+            background: #dbeafe;
+            color: var(--primary);
+        }
+
+        .role-organizer {
+            background: #ede9fe;
+            color: #8b5cf6;
+        }
+
+        .role-admin {
+            background: #fef3c7;
+            color: var(--accent);
+        }
+
+        /* Analytics Modal */
+        .analytics-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .analytics-card {
+            border: 1px solid var(--light-gray);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .analytics-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .analytics-label {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* Finance Modal */
+        .finance-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .finance-card {
+            border: 1px solid var(--light-gray);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .finance-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .finance-label {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* Settings Modal */
+        .settings-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--light-gray);
+            margin-bottom: 20px;
+        }
+
+        .settings-tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .settings-tab.active {
+            border-bottom: 2px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .settings-content {
+            display: none;
+        }
+
+        .settings-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" onclick="openModal('systemOverviewModal')">
+                    <div class="logo-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="logo-text">College<span>Events</span> Admin</div>
+                </div>
+<div class="user-info">
+    <!-- ADD THIS LOGOUT BUTTON -->
+    <button class="logout-btn" style="background: #dc2626; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; margin-right: 10px; font-size: 14px;">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </button>
+    
+    <div class="notification-icon" onclick="openModal('notificationsModal')">
+        <i class="far fa-bell"></i>
+        <div class="notification-badge">3</div>
+    </div>
+    <div class="user-profile" onclick="openModal('profileModal')">
+        <div class="avatar">JD</div>
+        <div class="user-details">
+            <div class="user-name">John Doe</div>
+            <div class="user-role">Student</div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <div class="welcome-header">
+                    <div class="welcome-text">
+                        <h2>Welcome back, Administrator!</h2>
+                        <p>Monitor system activity and manage all college events from your dashboard.</p>
+                    </div>
+                    <div class="admin-actions">
+                        <button class="admin-btn btn-secondary" onclick="openModal('systemSettingsModal')">
+                            <i class="fas fa-cog"></i>
+                            System Settings
+                        </button>
+                        <button class="admin-btn" onclick="openModal('reportsModal')">
+                            <i class="fas fa-chart-bar"></i>
+                            Generate Reports
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="stats-container">
+                <div class="stat-card" onclick="openModal('allEventsModal')">
+                    <div class="stat-header">
+                        <div class="stat-title">Total Events</div>
+                        <div class="stat-icon icon-blue">
+                            <i class="fas fa-calendar-week"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">42</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        8 events this month
+                    </div>
+                </div>
+                <div class="stat-card" onclick="openModal('pendingApprovalsModal')">
+                    <div class="stat-header">
+                        <div class="stat-title">Pending Approvals</div>
+                        <div class="stat-icon icon-yellow">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">12</div>
+                    <div class="stat-change negative">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Needs attention
+                    </div>
+                </div>
+                <div class="stat-card" onclick="openModal('usersModal')">
+                    <div class="stat-header">
+                        <div class="stat-title">Registered Users</div>
+                        <div class="stat-icon icon-green">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">1,247</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        5% from last month
+                    </div>
+                </div>
+                <div class="stat-card" onclick="openModal('financeModal')">
+                    <div class="stat-header">
+                        <div class="stat-title">Total Budget</div>
+                        <div class="stat-icon icon-purple">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">$18,500</div>
+                    <div class="stat-change">
+                        $12,350 utilized
+                    </div>
+                </div>
+            </section>
+
+            <!-- Content Layout -->
+            <div class="content-layout">
+                <!-- Left Column -->
+                <div>
+                    <!-- Pending Approvals Section -->
+                    <section class="approvals-section">
+                        <div class="section-header">
+                            <h3 class="section-title">Pending Approvals</h3>
+                            <a href="#" class="view-all" onclick="openModal('pendingApprovalsModal')">View All</a>
+                        </div>
+                        <div class="approvals-list">
+                            <!-- Approval 1 -->
+                            <div class="approval-card" onclick="openApprovalModal('AI Workshop Series')">
+                                <div class="approval-header">
+                                    <div>
+                                        <h4 class="approval-title">AI Workshop Series</h4>
+                                        <span class="approval-type type-event">Event</span>
+                                    </div>
+                                </div>
+                                <div class="approval-details">
+                                    <div class="approval-detail">
+                                        <i class="far fa-calendar"></i>
+                                        <span>Nov 5, 2023 | 2:00 PM</span>
+                                    </div>
+                                    <div class="approval-detail">
+                                        <i class="fas fa-user"></i>
+                                        <span>Tech Club</span>
+                                    </div>
+                                    <div class="approval-detail">
+                                        <i class="fas fa-money-bill"></i>
+                                        <span>Budget: $800</span>
+                                    </div>
+                                </div>
+                                <div class="approval-actions">
+                                    <button class="reject-btn" onclick="event.stopPropagation(); rejectApproval('AI Workshop Series')">Reject</button>
+                                    <button class="approve-btn" onclick="event.stopPropagation(); approveApproval('AI Workshop Series')">Approve</button>
+                                    <button class="view-details-btn" onclick="event.stopPropagation(); openApprovalModal('AI Workshop Series')">Details</button>
+                                </div>
+                            </div>
+                            <!-- Approval 2 -->
+                            <div class="approval-card" onclick="openApprovalModal('Cultural Fest Budget')">
+                                <div class="approval-header">
+                                    <div>
+                                        <h4 class="approval-title">Cultural Fest Budget</h4>
+                                        <span class="approval-type type-expense">Expense</span>
+                                    </div>
+                                </div>
+                                <div class="approval-details">
+                                    <div class="approval-detail">
+                                        <i class="far fa-calendar"></i>
+                                        <span>Submitted: Oct 18, 2023</span>
+                                    </div>
+                                    <div class="approval-detail">
+                                        <i class="fas fa-user"></i>
+                                        <span>Cultural Club</span>
+                                    </div>
+                                    <div class="approval-detail">
+                                        <i class="fas fa-money-bill"></i>
+                                        <span>Amount: $1,200</span>
+                                    </div>
+                                </div>
+                                <div class="approval-actions">
+                                    <button class="reject-btn" onclick="event.stopPropagation(); rejectApproval('Cultural Fest Budget')">Reject</button>
+                                    <button class="approve-btn" onclick="event.stopPropagation(); approveApproval('Cultural Fest Budget')">Approve</button>
+                                    <button class="view-details-btn" onclick="event.stopPropagation(); openApprovalModal('Cultural Fest Budget')">Details</button>
+                                </div>
+                            </div>
+                            <!-- Approval 3 -->
+                            <div class="approval-card" onclick="openApprovalModal('New Organizer Account')">
+                                <div class="approval-header">
+                                    <div>
+                                        <h4 class="approval-title">New Organizer Account</h4>
+                                        <span class="approval-type type-user">User</span>
+                                    </div>
+                                </div>
+                                <div class="approval-details">
+                                    <div class="approval-detail">
+                                        <i class="far fa-user"></i>
+                                        <span>Michael Chen</span>
+                                    </div>
+                                    <div class="approval-detail">
+                                        <i class="fas fa-users"></i>
+                                        <span>Robotics Club</span>
+                                    </div>
+                                    <div class="approval-detail">
+                                        <i class="far fa-clock"></i>
+                                        <span>Requested: 2 days ago</span>
+                                    </div>
+                                </div>
+                                <div class="approval-actions">
+                                    <button class="reject-btn" onclick="event.stopPropagation(); rejectApproval('New Organizer Account')">Reject</button>
+                                    <button class="approve-btn" onclick="event.stopPropagation(); approveApproval('New Organizer Account')">Approve</button>
+                                    <button class="view-details-btn" onclick="event.stopPropagation(); openApprovalModal('New Organizer Account')">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Recent Events Section -->
+                    <section class="events-section">
+                        <div class="section-header">
+                            <h3 class="section-title">Recent Events</h3>
+                            <a href="#" class="view-all" onclick="openModal('allEventsModal')">View All</a>
+                        </div>
+                        <div class="events-list">
+                            <!-- Event 1 -->
+                            <div class="event-card" onclick="openEventModal('Tech Symposium 2023')">
+                                <div class="event-header">
+                                    <div>
+                                        <h4 class="event-title">Tech Symposium 2023</h4>
+                                        <span class="event-status status-completed">Completed</span>
+                                    </div>
+                                </div>
+                                <div class="event-details">
+                                    <div class="event-detail">
+                                        <i class="far fa-calendar"></i>
+                                        <span>Oct 15, 2023 | 10:00 AM</span>
+                                    </div>
+                                    <div class="event-detail">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Main Auditorium</span>
+                                    </div>
+                                    <div class="event-detail">
+                                        <i class="fas fa-users"></i>
+                                        <span>Tech Club</span>
+                                    </div>
+                                </div>
+                                <div class="event-metrics">
+                                    <div class="metric">
+                                        <div class="metric-value">124</div>
+                                        <div class="metric-label">Registrations</div>
+                                    </div>
+                                    <div class="metric">
+                                        <div class="metric-value">87</div>
+                                        <div class="metric-label">Attended</div>
+                                    </div>
+                                    <div class="metric">
+                                        <div class="metric-value">4.2</div>
+                                        <div class="metric-label">Rating</div>
+                                    </div>
+                                </div>
+                                <div class="event-actions">
+                                    <button class="action-btn" onclick="event.stopPropagation(); openModal('eventAnalyticsModal')">Analytics</button>
+                                    <button class="view-details-btn" onclick="event.stopPropagation(); openEventModal('Tech Symposium 2023')">Details</button>
+                                </div>
+                            </div>
+                            <!-- Event 2 -->
+                            <div class="event-card" onclick="openEventModal('Hackathon 2023')">
+                                <div class="event-header">
+                                    <div>
+                                        <h4 class="event-title">Hackathon 2023</h4>
+                                        <span class="event-status status-completed">Completed</span>
+                                    </div>
+                                </div>
+                                <div class="event-details">
+                                    <div class="event-detail">
+                                        <i class="far fa-calendar"></i>
+                                        <span>Sept 20, 2023 | 9:00 AM</span>
+                                    </div>
+                                    <div class="event-detail">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Innovation Center</span>
+                                    </div>
+                                    <div class="event-detail">
+                                        <i class="fas fa-users"></i>
+                                        <span>Coding Club</span>
+                                    </div>
+                                </div>
+                                <div class="event-metrics">
+                                    <div class="metric">
+                                        <div class="metric-value">95</div>
+                                        <div class="metric-label">Participants</div>
+                                    </div>
+                                    <div class="metric">
+                                        <div class="metric-value">92</div>
+                                        <div class="metric-label">Attended</div>
+                                    </div>
+                                    <div class="metric">
+                                        <div class="metric-value">4.7</div>
+                                        <div class="metric-label">Rating</div>
+                                    </div>
+                                </div>
+                                <div class="event-actions">
+                                    <button class="action-btn" onclick="event.stopPropagation(); openModal('eventAnalyticsModal')">Analytics</button>
+                                    <button class="view-details-btn" onclick="event.stopPropagation(); openEventModal('Hackathon 2023')">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Quick Actions -->
+                    <section class="quick-actions">
+                        <div class="section-header">
+                            <h3 class="section-title">Quick Actions</h3>
+                        </div>
+                        <div class="actions-grid">
+                            <div class="action-item" onclick="openModal('usersModal')">
+                                <div class="action-icon">
+                                    <i class="fas fa-user-cog"></i>
+                                </div>
+                                <div class="action-text">Manage Users</div>
+                            </div>
+                            <div class="action-item" onclick="openModal('clubsModal')">
+                                <div class="action-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="action-text">Clubs & Societies</div>
+                            </div>
+                            <div class="action-item" onclick="openModal('financeModal')">
+                                <div class="action-icon">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                                <div class="action-text">Finance Overview</div>
+                            </div>
+                            <div class="action-item" onclick="openModal('certificatesModal')">
+                                <div class="action-icon">
+                                    <i class="fas fa-file-certificate"></i>
+                                </div>
+                                <div class="action-text">Certificates</div>
+                            </div>
+                            <div class="action-item" onclick="openModal('systemLogsModal')">
+                                <div class="action-icon">
+                                    <i class="fas fa-clipboard-list"></i>
+                                </div>
+                                <div class="action-text">System Logs</div>
+                            </div>
+                            <div class="action-item" onclick="openModal('backupModal')">
+                                <div class="action-icon">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                                <div class="action-text">Backup & Restore</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Notifications -->
+                    <section class="notifications">
+                        <div class="section-header">
+                            <h3 class="section-title">System Notifications</h3>
+                        </div>
+                        <div class="notification-list">
+                            <div class="notification-item" onclick="openModal('pendingApprovalsModal')">
+                                <div class="notification-icon icon-warning">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">12 pending approvals need attention</p>
+                                    <p class="notification-time">2 hours ago</p>
+                                </div>
+                            </div>
+                            <div class="notification-item" onclick="openModal('systemHealthModal')">
+                                <div class="notification-icon icon-success">
+                                    <i class="fas fa-server"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">System performance is optimal</p>
+                                    <p class="notification-time">1 day ago</p>
+                                </div>
+                            </div>
+                            <div class="notification-item" onclick="openModal('usersModal')">
+                                <div class="notification-icon icon-info">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">15 new user registrations</p>
+                                    <p class="notification-time">2 days ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- System Health -->
+                    <section class="system-health">
+                        <div class="section-header">
+                            <h3 class="section-title">System Health</h3>
+                        </div>
+                        <div class="health-metrics">
+                            <div class="health-metric">
+                                <div class="health-value health-good">98%</div>
+                                <div class="health-label">Uptime</div>
+                            </div>
+                            <div class="health-metric">
+                                <div class="health-value health-good">1.2s</div>
+                                <div class="health-label">Response Time</div>
+                            </div>
+                            <div class="health-metric">
+                                <div class="health-value health-warning">72%</div>
+                                <div class="health-label">Storage</div>
+                            </div>
+                            <div class="health-metric">
+                                <div class="health-value health-good">245</div>
+                                <div class="health-label">Active Users</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="copyright">
+                    &copy; 2023 College Event Management System. All rights reserved.
+                </div>
+                <div class="social-links">
+                    <div class="social-link" onclick="alert('Facebook page opened')"><i class="fab fa-facebook-f"></i></div>
+                    <div class="social-link" onclick="alert('Twitter page opened')"><i class="fab fa-twitter"></i></div>
+                    <div class="social-link" onclick="alert('Instagram page opened')"><i class="fab fa-instagram"></i></div>
+                    <div class="social-link" onclick="alert('LinkedIn page opened')"><i class="fab fa-linkedin-in"></i></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- System Overview Modal -->
+    <div id="systemOverviewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">System Overview</h3>
+                <button class="close-modal" onclick="closeModal('systemOverviewModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="analytics-container">
+                    <div class="analytics-card">
+                        <div class="analytics-value">42</div>
+                        <div class="analytics-label">Total Events</div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="analytics-value">1,247</div>
+                        <div class="analytics-label">Registered Users</div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="analytics-value">15</div>
+                        <div class="analytics-label">Active Clubs</div>
+                    </div>
+                    <div class="analytics-card">
+                        <div class="analytics-value">87%</div>
+                        <div class="analytics-label">Attendance Rate</div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-primary" onclick="openModal('reportsModal')">Generate Report</button>
+                    <button class="btn btn-secondary" onclick="closeModal('systemOverviewModal')">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Users Management Modal -->
+    <div id="usersModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">User Management</h3>
+                <button class="close-modal" onclick="closeModal('usersModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search users...">
+                </div>
+                <div class="users-list">
+                    <div class="user-item">
+                        <div class="user-info-modal">
+                            <div class="user-avatar">JS</div>
+                            <div class="user-details-modal">
+                                <h4>John Smith</h4>
+                                <span class="user-role-badge role-student">Student</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">Manage</button>
+                    </div>
+                    <div class="user-item">
+                        <div class="user-info-modal">
+                            <div class="user-avatar">SJ</div>
+                            <div class="user-details-modal">
+                                <h4>Sarah Johnson</h4>
+                                <span class="user-role-badge role-organizer">Organizer</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">Manage</button>
+                    </div>
+                    <div class="user-item">
+                        <div class="user-info-modal">
+                            <div class="user-avatar">MC</div>
+                            <div class="user-details-modal">
+                                <h4>Michael Chen</h4>
+                                <span class="user-role-badge role-organizer">Organizer</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">Manage</button>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-primary">Add New User</button>
+                    <button class="btn btn-secondary" onclick="closeModal('usersModal')">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Finance Overview Modal -->
+    <div id="financeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Finance Overview</h3>
+                <button class="close-modal" onclick="closeModal('financeModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="finance-summary">
+                    <div class="finance-card">
+                        <div class="finance-value">$18,500</div>
+                        <div class="finance-label">Total Budget</div>
+                    </div>
+                    <div class="finance-card">
+                        <div class="finance-value">$12,350</div>
+                        <div class="finance-label">Utilized</div>
+                    </div>
+                    <div class="finance-card">
+                        <div class="finance-value">$6,150</div>
+                        <div class="finance-label">Remaining</div>
+                    </div>
+                </div>
+                <div class="event-detail-item">
+                    <div class="event-detail-label">Top Spending Clubs:</div>
+                    <div class="event-detail-value">
+                        <div>Tech Club: $4,200</div>
+                        <div>Cultural Club: $3,800</div>
+                        <div>Sports Club: $2,100</div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-primary">Download Report</button>
+                    <button class="btn btn-secondary" onclick="closeModal('financeModal')">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Details Modal -->
+    <div id="eventDetailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="eventModalTitle">Event Details</h3>
+                <button class="close-modal" onclick="closeModal('eventDetailsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="event-detail-item">
+                    <div class="event-detail-label">Date & Time:</div>
+                    <div class="event-detail-value">October 15, 2023 | 10:00 AM - 4:00 PM</div>
+                </div>
+                <div class="event-detail-item">
+                    <div class="event-detail-label">Venue:</div>
+                    <div class="event-detail-value">Main Auditorium</div>
+                </div>
+                <div class="event-detail-item">
+                    <div class="event-detail-label">Organizer:</div>
+                    <div class="event-detail-value">Tech Club</div>
+                </div>
+                <div class="event-detail-item">
+                    <div class="event-detail-label">Category:</div>
+                    <div class="event-detail-value">Technology Symposium</div>
+                </div>
+                <div class="event-detail-item">
+                    <div class="event-detail-label">Status:</div>
+                    <div class="event-detail-value"><span class="event-status status-completed">Completed</span></div>
+                </div>
+                <div class="event-description">
+                    <h4>Description</h4>
+                    <p>Join us for the annual Tech Symposium featuring talks from industry experts, hands-on workshops, and networking opportunities. This event is perfect for students interested in technology, innovation, and career development in the tech industry.</p>
+                </div>
+                <div class="event-metrics">
+                    <div class="metric">
+                        <div class="metric-value">124</div>
+                        <div class="metric-label">Registrations</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">87</div>
+                        <div class="metric-label">Attended</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">4.2</div>
+                        <div class="metric-label">Rating</div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-primary" onclick="openModal('eventAnalyticsModal')">View Analytics</button>
+                    <button class="btn btn-secondary" onclick="closeModal('eventDetailsModal')">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Settings Modal -->
+    <div id="systemSettingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">System Settings</h3>
+                <button class="close-modal" onclick="closeModal('systemSettingsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-tabs">
+                    <div class="settings-tab active" onclick="openSettingsTab('general')">General</div>
+                    <div class="settings-tab" onclick="openSettingsTab('security')">Security</div>
+                    <div class="settings-tab" onclick="openSettingsTab('notifications')">Notifications</div>
+                </div>
+                
+                <div id="general-settings" class="settings-content active">
+                    <div class="form-group">
+                        <label class="form-label">System Name</label>
+                        <input type="text" class="form-control" value="College Event Management System">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Default User Role</label>
+                        <select class="form-control">
+                            <option>Student</option>
+                            <option>Organizer</option>
+                            <option selected>Admin</option>
+                        </select>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="autoBackup" checked>
+                        <label class="form-label" for="autoBackup">Enable Automatic Backups</label>
+                    </div>
+                </div>
+                
+                <div id="security-settings" class="settings-content">
+                    <div class="form-group">
+                        <label class="form-label">Session Timeout (minutes)</label>
+                        <input type="number" class="form-control" value="30">
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="twoFactor" checked>
+                        <label class="form-label" for="twoFactor">Enable Two-Factor Authentication</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="passwordPolicy" checked>
+                        <label class="form-label" for="passwordPolicy">Enforce Password Policy</label>
+                    </div>
+                </div>
+                
+                <div id="notifications-settings" class="settings-content">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="emailNotifications" checked>
+                        <label class="form-label" for="emailNotifications">Email Notifications</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="approvalNotifications" checked>
+                        <label class="form-label" for="approvalNotifications">Approval Notifications</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="systemAlerts" checked>
+                        <label class="form-label" for="systemAlerts">System Alert Notifications</label>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn btn-primary">Save Settings</button>
+                    <button class="btn btn-secondary" onclick="closeModal('systemSettingsModal')">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reports Modal -->
+    <div id="reportsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Generate Reports</h3>
+                <button class="close-modal" onclick="closeModal('reportsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Report Type</label>
+                    <select class="form-control">
+                        <option>Event Attendance Report</option>
+                        <option>Financial Summary Report</option>
+                        <option>User Activity Report</option>
+                        <option>System Usage Report</option>
+                        <option>Club Performance Report</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Start Date</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">End Date</label>
+                        <input type="date" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Format</label>
+                    <select class="form-control">
+                        <option>PDF</option>
+                        <option>Excel</option>
+                        <option>CSV</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-primary">Generate Report</button>
+                    <button class="btn btn-secondary" onclick="closeModal('reportsModal')">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications Modal -->
+    <div id="notificationsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">All Notifications</h3>
+                <button class="close-modal" onclick="closeModal('notificationsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="notification-list">
+                    <div class="notification-item">
+                        <div class="notification-icon icon-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="notification-content">
+                            <p class="notification-text">12 pending approvals need attention</p>
+                            <p class="notification-time">2 hours ago</p>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon icon-success">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <div class="notification-content">
+                            <p class="notification-text">System performance is optimal</p>
+                            <p class="notification-time">1 day ago</p>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon icon-info">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="notification-content">
+                            <p class="notification-text">15 new user registrations</p>
+                            <p class="notification-time">2 days ago</p>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon icon-danger">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="notification-content">
+                            <p class="notification-text">Backup completed successfully</p>
+                            <p class="notification-time">3 days ago</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="closeModal('notificationsModal')">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function openEventModal(eventName) {
+            document.getElementById('eventModalTitle').textContent = eventName;
+            openModal('eventDetailsModal');
+        }
+
+        function openApprovalModal(approvalName) {
+            alert(`Opening details for: ${approvalName}`);
+            // In a real application, this would open a specific approval modal
+        }
+
+        function approveApproval(approvalName) {
+            if (confirm(`Are you sure you want to approve ${approvalName}?`)) {
+                alert(`${approvalName} has been approved!`);
+                // In a real application, this would send an approval to the server
+            }
+        }
+
+        function rejectApproval(approvalName) {
+            if (confirm(`Are you sure you want to reject ${approvalName}?`)) {
+                alert(`${approvalName} has been rejected!`);
+                // In a real application, this would send a rejection to the server
+            }
+        }
+
+        // Settings tab functionality
+        function openSettingsTab(tabName) {
+            // Hide all settings content
+            const settingsContents = document.querySelectorAll('.settings-content');
+            settingsContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            const settingsTabs = document.querySelectorAll('.settings-tab');
+            settingsTabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content and activate tab
+            document.getElementById(`${tabName}-settings`).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Sample data for demonstration
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Admin dashboard loaded');
+        });
+    </script>
+</body>
+</html>

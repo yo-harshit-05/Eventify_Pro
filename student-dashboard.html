@@ -789,19 +789,24 @@
                     </div>
                     <div class="logo-text">College<span>Events</span></div>
                 </div>
-                <div class="user-info">
-                    <div class="notification-icon" onclick="openModal('notificationsModal')">
-                        <i class="far fa-bell"></i>
-                        <div class="notification-badge">3</div>
-                    </div>
-                    <div class="user-profile" onclick="openModal('profileModal')">
-                        <div class="avatar">AK</div>
-                        <div class="user-details">
-                            <div class="user-name">Amit Kumar</div>
-                            <div class="user-role">Student</div>
-                        </div>
-                    </div>
-                </div>
+<div class="user-info">
+    <!-- ADD THIS LOGOUT BUTTON -->
+    <button class="logout-btn" style="background: #dc2626; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; margin-right: 10px; font-size: 14px;">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </button>
+    
+    <div class="notification-icon" onclick="openModal('notificationsModal')">
+        <i class="far fa-bell"></i>
+        <div class="notification-badge">3</div>
+    </div>
+    <div class="user-profile" onclick="openModal('profileModal')">
+        <div class="avatar">JD</div>
+        <div class="user-details">
+            <div class="user-name">John Doe</div>
+            <div class="user-role">Student</div>
+        </div>
+    </div>
+</div>
             </div>
         </div>
     </header>
